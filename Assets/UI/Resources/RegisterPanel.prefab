@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 22249652}
   - component: {fileID: 11400644}
   m_Layer: 5
-  m_Name: RegPanel
+  m_Name: RegisterPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

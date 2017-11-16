@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 22280844}
   - component: {fileID: 11443992}
   m_Layer: 5
-  m_Name: RoomListPanel
+  m_Name: LobbyPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
