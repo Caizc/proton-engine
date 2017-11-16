@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
         // 启动网络
         NetworkManager.Instance.Start();
 
-        // TODO: 打开登录面板
+        // 打开登录界面
+        UIManager.Instance.OpenPanel<LoginPanel>("");
 
         Debug.Log("=== The Game is RUNNING... ===");
     }
