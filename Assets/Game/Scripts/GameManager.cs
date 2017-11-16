@@ -23,5 +23,7 @@ public class GameManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        // 驱动网络
+        NetworkManager.Instance.Update();
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace Proton
+﻿using System;
+using System.Linq;
+
+namespace Proton
 {
     /// <summary>
     /// 协议基类
@@ -24,6 +27,19 @@
         public virtual byte[] Encode()
         {
             return new byte[] { };
+        }
+
+        /// <summary>
+        /// 打包成协议消息包（在编码后的字节数组前面添加一个4字节的int，描述消息的总长度）
+        /// </summary>
+        /// <returns>消息包的字节数组</returns>
+        public virtual byte[] Pack()
+        {
+            byte[] msgBytes = Encode();
+            byte[] lenBytes = BitConverter.GetBytes(msgBytes.Length);
+            byte[] data = lenBytes.Concat(msgBytes).ToArray();
+
+            return data;
         }
 
         /// <summary>
