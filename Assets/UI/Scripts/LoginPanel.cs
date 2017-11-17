@@ -7,10 +7,14 @@ using UnityEngine.UI;
 /// </summary>
 public class LoginPanel : UIPanel
 {
+    #region UI 组件
+
     private InputField _idInput;
     private InputField _pwInput;
     private Button _loginButton;
     private Button _registerButton;
+
+    #endregion
 
     #region 生命周期方法
 
@@ -33,7 +37,7 @@ public class LoginPanel : UIPanel
 
         Transform skinTransform = Skin.transform;
 
-        // 获取 UI 元素
+        // 获取 UI 组件的引用
         _idInput = skinTransform.Find("IDInput").GetComponent<InputField>();
         _pwInput = skinTransform.Find("PWInput").GetComponent<InputField>();
         _loginButton = skinTransform.Find("LoginBtn").GetComponent<Button>();
@@ -49,11 +53,19 @@ public class LoginPanel : UIPanel
     /// <summary>
     /// 登录
     /// </summary>
-    public void OnLoginClick()
+    private void OnLoginClick()
     {
+        // 登录前的用户名密码校验
         if (_idInput.text.Equals("") || _pwInput.text.Equals(""))
         {
             UIManager.Instance.ShowAlertPanel("必须填写用户名和密码！");
+            return;
+        }
+
+        // 检查网络连接是否可用
+        if (!NetworkManager.Instance.IsAvailable())
+        {
+            UIManager.Instance.ShowAlertPanel("与服务器的连接已断开，请重启游戏！");
             return;
         }
 
@@ -70,7 +82,7 @@ public class LoginPanel : UIPanel
     /// <summary>
     /// 注册
     /// </summary>
-    public void OnRegisterClick()
+    private void OnRegisterClick()
     {
         // 打开注册界面
         UIManager.Instance.OpenPanel<RegisterPanel>("");

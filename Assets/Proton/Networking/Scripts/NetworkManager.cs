@@ -50,5 +50,14 @@
             // 驱动消息分发、心跳报告等
             serverConn.Update();
         }
+
+        /// <summary>
+        /// 网络连接是否可用
+        /// </summary>
+        /// <returns>网络连接是否可用</returns>
+        public bool IsAvailable()
+        {
+            return serverConn.IsAlive();
+        }
     }
 }

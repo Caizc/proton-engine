@@ -82,7 +82,7 @@ public class UIPanel : MonoBehaviour
     /// </summary>
     protected virtual void Close()
     {
-        Debug.Log("[关闭界面] " + PanelName);
+        // Debug.Log("[关闭界面] " + PanelName);
         UIManager.Instance.ClosePanel(PanelName);
     }
 

@@ -121,9 +121,23 @@ namespace Proton
         }
 
         /// <summary>
+        /// 连接是否存活
+        /// </summary>
+        /// <returns>连接是否存活</returns>
+        public bool IsAlive()
+        {
+            if (ConnStatus == Status.DISCONNECTED || !_socket.Connected)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// 关闭 Socket 连接
         /// </summary>
-        /// <returns></returns>
+        /// <returns>是否关闭成功</returns>
         public bool Close()
         {
             try
@@ -178,6 +192,8 @@ namespace Proton
 
             // 注册动作监听器
             _msgDistributor.AddActionListener(protoName, listener);
+
+            Debug.Log("[向服务端发送数据] " + protoName);
 
             return Send(proto);
         }
