@@ -38,7 +38,8 @@
         /// </summary>
         public void Start()
         {
-            // TODO: 网络初始化操作
+            // 连接服务端
+            serverConn.Connect();
         }
 
         /// <summary>

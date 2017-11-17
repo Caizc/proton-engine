@@ -65,6 +65,25 @@ namespace Proton
         /// <summary>
         /// 与服务端建立 Socket 连接
         /// </summary>
+        /// <returns>连接是否建立成功</returns>
+        public bool Connect()
+        {
+            NetworkConfig networkConfig = Resources.Load<NetworkConfig>("NetworkConfig");
+
+            if (networkConfig == null)
+            {
+                Debug.LogError("[网络配置出错] 无法读取网络配置！");
+                return false;
+            }
+
+            Debug.Log("[服务端地址] " + networkConfig.Host + ":" + networkConfig.Port);
+
+            return Connect(networkConfig.Host, networkConfig.Port);
+        }
+
+        /// <summary>
+        /// 与服务端建立 Socket 连接
+        /// </summary>
         /// <param name="host">服务端主机地址</param>
         /// <param name="port">服务端 Socket 监听端口</param>
         /// <returns>连接是否建立成功</returns>
@@ -89,6 +108,8 @@ namespace Proton
 
                 // 设置连接状态为“已连接”
                 ConnStatus = Status.CONNECTED;
+
+                Debug.Log("[建立连接成功] 与服务端 " + host + ":" + port + " 建立 Socket 连接成功");
 
                 return true;
             }

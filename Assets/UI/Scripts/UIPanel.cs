@@ -7,6 +7,9 @@ using UnityEngine;
 /// </summary>
 public class UIPanel : MonoBehaviour
 {
+    // 面板名称
+    public string PanelName;
+
     // 皮肤文件路径
     public string SkinPath;
 
@@ -28,6 +31,7 @@ public class UIPanel : MonoBehaviour
     public virtual void Init(params object[] args)
     {
         this.args = args;
+        PanelName = GetType().ToString();
     }
 
     /// <summary>
@@ -42,6 +46,7 @@ public class UIPanel : MonoBehaviour
     /// </summary>
     public virtual void OnShowed()
     {
+        Debug.Log("[界面已打开] " + PanelName);
     }
 
     /// <summary>
@@ -63,6 +68,8 @@ public class UIPanel : MonoBehaviour
     /// </summary>
     public virtual void OnClosed()
     {
+        Debug.Log("[界面已关闭] " + PanelName);
+
         // 销毁对象
         Destroy(Skin);
         Destroy(this);
@@ -70,16 +77,16 @@ public class UIPanel : MonoBehaviour
 
     #endregion
 
-    #region 操作方法
-
     /// <summary>
     /// 关闭
     /// </summary>
     protected virtual void Close()
     {
-        string panelName = GetType().ToString();
-        UIManager.Instance.ClosePanel(panelName);
+        Debug.Log("[关闭界面] " + PanelName);
+        UIManager.Instance.ClosePanel(PanelName);
     }
+
+    #region 操作方法
 
     #endregion
 }

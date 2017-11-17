@@ -115,6 +115,15 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
+    /// 显示提示消息框
+    /// </summary>
+    /// <param name="message">提示消息</param>
+    public void ShowAlertPanel(string message)
+    {
+        OpenPanel<AlertPanel>("", message);
+    }
+
+    /// <summary>
     /// 初始化 UI 层级
     /// </summary>
     private void InitUILayer()
