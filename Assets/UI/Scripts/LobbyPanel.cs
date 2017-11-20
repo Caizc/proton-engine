@@ -22,6 +22,9 @@ public class LobbyPanel : UIPanel
 
     #region 生命周期方法
 
+    /// <summary>
+    /// 初始化
+    /// </summary>
     public override void Init(params object[] args)
     {
         base.Init(args);
@@ -30,6 +33,9 @@ public class LobbyPanel : UIPanel
         Layer = PanelLayerEnum.Panel;
     }
 
+    /// <summary>
+    /// 显示界面
+    /// </summary>
     public override void OnShowing()
     {
         base.OnShowing();
@@ -52,7 +58,7 @@ public class LobbyPanel : UIPanel
         _refreshButton = roomListTransform.Find("RefreshBtn").GetComponent<Button>();
         _logoutButton = roomListTransform.Find("LogoutBtn").GetComponent<Button>();
 
-        // 为按钮添加点击事件
+        // 为按钮添加点击事件监听
         _newButton.onClick.AddListener(OnNewClick);
         _refreshButton.onClick.AddListener(OnRefreshClick);
         _logoutButton.onClick.AddListener(OnLogoutClick);
@@ -71,6 +77,9 @@ public class LobbyPanel : UIPanel
         NetworkManager.Instance.serverConn.Send(proto);
     }
 
+    /// <summary>
+    /// 关闭界面
+    /// </summary>
     public override void OnClosing()
     {
         base.OnClosing();
@@ -100,8 +109,8 @@ public class LobbyPanel : UIPanel
 
         // 更新 UI 信息
         _idText.text = "玩家: " + PlayerManager.Instance.PlayerID;
-        _winText.text = winCount.ToString();
-        _lostText.text = lostCount.ToString();
+        _winText.text = "Win: " + winCount;
+        _lostText.text = "Lost: " + lostCount;
     }
 
     /// <summary>
@@ -221,7 +230,7 @@ public class LobbyPanel : UIPanel
         int result = responseProto.GetInt(start, ref start);
         if (result == 0)
         {
-            UIManager.Instance.ShowAlertPanel("成功进入房间");
+            // UIManager.Instance.ShowAlertPanel("成功进入房间");
 
             // 打开房间界面
             UIManager.Instance.OpenPanel<RoomPanel>("");

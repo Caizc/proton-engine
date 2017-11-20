@@ -18,6 +18,9 @@ public class AlertPanel : UIPanel
 
     #region 生命周期方法
 
+    /// <summary>
+    /// 初始化
+    /// </summary>
     public override void Init(params object[] args)
     {
         base.Init(args);
@@ -32,6 +35,9 @@ public class AlertPanel : UIPanel
         }
     }
 
+    /// <summary>
+    /// 显示界面
+    /// </summary>
     public override void OnShowing()
     {
         base.OnShowing();

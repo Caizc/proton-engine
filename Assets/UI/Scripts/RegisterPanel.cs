@@ -19,6 +19,9 @@ public class RegisterPanel : UIPanel
 
     #region 生命周期方法
 
+    /// <summary>
+    /// 初始化
+    /// </summary>
     public override void Init(params object[] args)
     {
         base.Init(args);
@@ -27,6 +30,9 @@ public class RegisterPanel : UIPanel
         Layer = PanelLayerEnum.Panel;
     }
 
+    /// <summary>
+    /// 显示界面
+    /// </summary>
     public override void OnShowing()
     {
         base.OnShowing();
@@ -40,7 +46,7 @@ public class RegisterPanel : UIPanel
         _registerButton = skinTransform.Find("RegisterBtn").GetComponent<Button>();
         _closeButton = skinTransform.Find("CloseBtn").GetComponent<Button>();
 
-        // 为按钮添加点击事件
+        // 为按钮添加点击事件监听
         _registerButton.onClick.AddListener(OnRegisterClick);
         _closeButton.onClick.AddListener(OnCloseClick);
     }

@@ -44,7 +44,7 @@ public class LoginPanel : UIPanel
         _loginButton = skinTransform.Find("LoginBtn").GetComponent<Button>();
         _registerButton = skinTransform.Find("RegisterBtn").GetComponent<Button>();
 
-        // 为按钮添加点击事件
+        // 为按钮添加点击事件监听
         _loginButton.onClick.AddListener(OnLoginClick);
         _registerButton.onClick.AddListener(OnRegisterClick);
     }
