@@ -24,6 +24,7 @@ public class LoginPanel : UIPanel
     public override void Init(params object[] args)
     {
         base.Init(args);
+
         SkinPath = "LoginPanel";
         Layer = PanelLayerEnum.Panel;
     }
@@ -71,12 +72,12 @@ public class LoginPanel : UIPanel
 
         // 组装登录协议消息
         ProtocolBytes proto = new ProtocolBytes();
-        proto.AddString("Login");
+        proto.AddString(ProtocolType.LOGIN);
         proto.AddString(_idInput.text);
         proto.AddString(_pwInput.text);
 
         // 发送登录协议
-        NetworkManager.Instance.serverConn.Send(proto, "Login", OnLoginCallback);
+        NetworkManager.Instance.serverConn.Send(proto, ProtocolType.LOGIN, OnLoginCallback);
     }
 
     /// <summary>

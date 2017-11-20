@@ -22,6 +22,7 @@ public class RegisterPanel : UIPanel
     public override void Init(params object[] args)
     {
         base.Init(args);
+
         SkinPath = "RegisterPanel";
         Layer = PanelLayerEnum.Panel;
     }
@@ -73,20 +74,12 @@ public class RegisterPanel : UIPanel
 
         // 组装注册协议消息
         ProtocolBytes proto = new ProtocolBytes();
-        proto.AddString("Register");
+        proto.AddString(ProtocolType.REGISTER);
         proto.AddString(_idInput.text);
         proto.AddString(_pwInput.text);
 
         // 发送注册协议
-        NetworkManager.Instance.serverConn.Send(proto, "Register", OnRegisterCallback);
-    }
-
-    /// <summary>
-    /// 关闭
-    /// </summary>
-    private void OnCloseClick()
-    {
-        Close();
+        NetworkManager.Instance.serverConn.Send(proto, ProtocolType.REGISTER, OnRegisterCallback);
     }
 
     /// <summary>
@@ -114,5 +107,13 @@ public class RegisterPanel : UIPanel
         {
             UIManager.Instance.ShowAlertPanel("注册失败，请尝试其它用户名！");
         }
+    }
+
+    /// <summary>
+    /// 关闭
+    /// </summary>
+    private void OnCloseClick()
+    {
+        Close();
     }
 }

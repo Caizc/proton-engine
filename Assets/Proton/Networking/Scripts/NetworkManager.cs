@@ -59,5 +59,14 @@
         {
             return serverConn.IsAlive();
         }
+
+        /// <summary>
+        /// 关闭网络
+        /// </summary>
+        public void Shutdown()
+        {
+            // 关闭 Socket 连接
+            serverConn.Close();
+        }
     }
 }

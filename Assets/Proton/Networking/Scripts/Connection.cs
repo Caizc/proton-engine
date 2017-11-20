@@ -98,7 +98,8 @@ namespace Proton
             try
             {
                 // 初始化客户端 Socket
-                _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream,
+                    System.Net.Sockets.ProtocolType.Tcp);
                 // 连接服务端
                 _socket.Connect(host, port);
                 // 异步接收服务端发来的数据
@@ -211,12 +212,37 @@ namespace Proton
         }
 
         /// <summary>
+        /// 向消息分发器注册事件监听器
+        /// </summary>
+        /// <param name="protoName">协议名称</param>
+        /// <param name="listener">事件监听器</param>
+        public void AddEventListener(string protoName, MessageDistributor.MessageListener listener)
+        {
+            _msgDistributor.AddEventListener(protoName, listener);
+        }
+
+        /// <summary>
+        /// 从消息分发器移除事件监听器
+        /// </summary>
+        /// <param name="protoName">协议名称</param>
+        /// <param name="listener">事件监听器</param>
+        public void RemoveEventListener(string protoName, MessageDistributor.MessageListener listener)
+        {
+            _msgDistributor.RemoveEventListener(protoName, listener);
+        }
+
+        /// <summary>
         /// 数据接收回调方法
         /// </summary>
         private void DataReceivedCallback(IAsyncResult ar)
         {
             try
             {
+                if (!_socket.Connected)
+                {
+                    return;
+                }
+
                 int dataCount = _socket.EndReceive(ar);
                 _bufferCount += dataCount;
 
@@ -230,7 +256,7 @@ namespace Proton
             }
             catch (Exception e)
             {
-                Debug.LogError("\n" + e.Message);
+                Debug.LogError(e.Message);
             }
         }
 

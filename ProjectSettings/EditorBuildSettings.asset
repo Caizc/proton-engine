@@ -4,4 +4,7 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Game/_Scenes/MinimalOnlineGame.unity
+    guid: 25b5b976ea79133489ca4a43f52e757e
