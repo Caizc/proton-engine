@@ -37,16 +37,22 @@ namespace Proton
         private byte[] _dataBuffer = new byte[BUFFER_SIZE];
 
         // 当前缓存的字节数
-        private int _bufferCount = 0;
+        private int _bufferCount;
 
         // 消息包长度
-        private Int32 _msgLength = 0;
+        private Int32 _msgLength;
 
         // 表示消息包长度的字节数据（4 个字节）
         private byte[] _msgLenBytes = new byte[sizeof(UInt32)];
 
         // 消息分发器
         private MessageDistributor _msgDistributor = new MessageDistributor();
+
+        // 心跳时间间隔
+        private const float HeartbeatInterval = 30f;
+
+        // 最后心跳时间
+        private float _lastBeatTime;
 
         /// <summary>
         /// 每一帧处理消息分发
@@ -58,7 +64,16 @@ namespace Proton
 
             if (ConnStatus == Status.CONNECTED)
             {
-                // TODO: 发送心跳消息
+                // 每到心跳时间，向服务端发送一条心跳消息，以表示该客户端存活
+                if (Time.time - _lastBeatTime > HeartbeatInterval)
+                {
+                    ProtocolBytes proto = new ProtocolBytes();
+                    proto.AddString(ProtocolType.HEARTBEAT);
+
+                    Send(proto);
+
+                    _lastBeatTime = Time.time;
+                }
             }
         }
 

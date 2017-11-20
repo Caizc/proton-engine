@@ -6,7 +6,10 @@
     public class NetworkManager
     {
         // 与服务端网络连接
-        public Connection serverConn = new Connection();
+        public Connection ServerConn = new Connection();
+
+        // 网络状态
+        public NetworkStatus NetworkStatus = new NetworkStatus();
 
         private static NetworkManager _instance;
 
@@ -39,7 +42,10 @@
         public void Start()
         {
             // 连接服务端
-            serverConn.Connect();
+            ServerConn.Connect();
+
+            // 初始化网络状态监听
+            NetworkStatus.Init();
         }
 
         /// <summary>
@@ -48,7 +54,10 @@
         public void Update()
         {
             // 驱动消息分发、心跳报告等
-            serverConn.Update();
+            ServerConn.Update();
+
+            // 驱动网络状态监听
+            NetworkStatus.Update();
         }
 
         /// <summary>
@@ -57,7 +66,7 @@
         /// <returns>网络连接是否可用</returns>
         public bool IsAvailable()
         {
-            return serverConn.IsAlive();
+            return ServerConn.IsAlive();
         }
 
         /// <summary>
@@ -65,8 +74,11 @@
         /// </summary>
         public void Shutdown()
         {
+            // 停止网络状态监听
+            NetworkStatus.Shutdown();
+
             // 关闭 Socket 连接
-            serverConn.Close();
+            ServerConn.Close();
         }
     }
 }

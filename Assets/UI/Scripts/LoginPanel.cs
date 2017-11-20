@@ -77,7 +77,7 @@ public class LoginPanel : UIPanel
         proto.AddString(_pwInput.text);
 
         // 发送登录协议
-        NetworkManager.Instance.serverConn.Send(proto, ProtocolType.LOGIN, OnLoginCallback);
+        NetworkManager.Instance.ServerConn.Send(proto, ProtocolType.LOGIN, OnLoginCallback);
     }
 
     /// <summary>

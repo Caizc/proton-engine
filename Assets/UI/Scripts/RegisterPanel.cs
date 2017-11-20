@@ -85,7 +85,7 @@ public class RegisterPanel : UIPanel
         proto.AddString(_pwInput.text);
 
         // 发送注册协议
-        NetworkManager.Instance.serverConn.Send(proto, ProtocolType.REGISTER, OnRegisterCallback);
+        NetworkManager.Instance.ServerConn.Send(proto, ProtocolType.REGISTER, OnRegisterCallback);
     }
 
     /// <summary>

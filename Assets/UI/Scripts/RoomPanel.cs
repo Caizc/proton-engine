@@ -55,13 +55,13 @@ public class RoomPanel : UIPanel
         _quitButton.onClick.AddListener(OnQuitClick);
 
         // 向消息分发器注册事件监听回调方法
-        NetworkManager.Instance.serverConn.AddEventListener(ProtocolType.GET_ROOM_INFO, OnGetRoomInfoCallback);
-        NetworkManager.Instance.serverConn.AddEventListener(ProtocolType.FIGHT, OnStartFightCallback);
+        NetworkManager.Instance.ServerConn.AddEventListener(ProtocolType.GET_ROOM_INFO, OnGetRoomInfoCallback);
+        NetworkManager.Instance.ServerConn.AddEventListener(ProtocolType.FIGHT, OnStartFightCallback);
 
         // 向服务端查询“房间信息”
         ProtocolBytes proto = new ProtocolBytes();
         proto.AddString(ProtocolType.GET_ROOM_INFO);
-        NetworkManager.Instance.serverConn.Send(proto);
+        NetworkManager.Instance.ServerConn.Send(proto);
     }
 
     /// <summary>
@@ -72,8 +72,8 @@ public class RoomPanel : UIPanel
         base.OnClosing();
 
         // 从消息分发器移除事件监听回调方法
-        NetworkManager.Instance.serverConn.RemoveEventListener(ProtocolType.GET_ROOM_INFO, OnGetRoomInfoCallback);
-        NetworkManager.Instance.serverConn.RemoveEventListener(ProtocolType.FIGHT, OnStartFightCallback);
+        NetworkManager.Instance.ServerConn.RemoveEventListener(ProtocolType.GET_ROOM_INFO, OnGetRoomInfoCallback);
+        NetworkManager.Instance.ServerConn.RemoveEventListener(ProtocolType.FIGHT, OnStartFightCallback);
     }
 
     #endregion
@@ -157,6 +157,11 @@ public class RoomPanel : UIPanel
 
         Debug.Log("[战斗开始]");
 
+        // 开始监听网络延迟
+        NetworkManager.Instance.NetworkStatus.Start();
+
+        // TODO: 战斗结束后要停掉网络延迟监听
+
         // 加载战斗场景
         UIManager.Instance.ShowAlertPanel("FIGHTING!");
 
@@ -172,7 +177,7 @@ public class RoomPanel : UIPanel
         ProtocolBytes proto = new ProtocolBytes();
         proto.AddString(ProtocolType.START_FIGHT);
 
-        NetworkManager.Instance.serverConn.Send(proto, OnStartCallback);
+        NetworkManager.Instance.ServerConn.Send(proto, OnStartCallback);
 
         Debug.Log("[请求开始战斗]");
     }
@@ -205,7 +210,7 @@ public class RoomPanel : UIPanel
         ProtocolBytes proto = new ProtocolBytes();
         proto.AddString(ProtocolType.LEAVE_ROOM);
 
-        NetworkManager.Instance.serverConn.Send(proto, OnQuitCallback);
+        NetworkManager.Instance.ServerConn.Send(proto, OnQuitCallback);
 
         Debug.Log("[请求离开房间]");
     }

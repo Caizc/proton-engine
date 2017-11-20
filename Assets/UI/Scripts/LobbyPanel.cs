@@ -64,17 +64,17 @@ public class LobbyPanel : UIPanel
         _logoutButton.onClick.AddListener(OnLogoutClick);
 
         // 向消息分发器注册事件监听回调方法
-        NetworkManager.Instance.serverConn.AddEventListener(ProtocolType.GET_ACHIEVEMENT, OnGetAchievementCallback);
-        NetworkManager.Instance.serverConn.AddEventListener(ProtocolType.GET_ROOM_LIST, OnGetRoomListCallback);
+        NetworkManager.Instance.ServerConn.AddEventListener(ProtocolType.GET_ACHIEVEMENT, OnGetAchievementCallback);
+        NetworkManager.Instance.ServerConn.AddEventListener(ProtocolType.GET_ROOM_LIST, OnGetRoomListCallback);
 
         // 向服务端查询“玩家成就”和“房间列表”
         ProtocolBytes proto = new ProtocolBytes();
         proto.AddString(ProtocolType.GET_ACHIEVEMENT);
-        NetworkManager.Instance.serverConn.Send(proto);
+        NetworkManager.Instance.ServerConn.Send(proto);
 
         proto = new ProtocolBytes();
         proto.AddString(ProtocolType.GET_ROOM_LIST);
-        NetworkManager.Instance.serverConn.Send(proto);
+        NetworkManager.Instance.ServerConn.Send(proto);
     }
 
     /// <summary>
@@ -85,8 +85,8 @@ public class LobbyPanel : UIPanel
         base.OnClosing();
 
         // 从消息分发器移除事件监听回调方法
-        NetworkManager.Instance.serverConn.RemoveEventListener(ProtocolType.GET_ACHIEVEMENT, OnGetAchievementCallback);
-        NetworkManager.Instance.serverConn.RemoveEventListener(ProtocolType.GET_ROOM_LIST, OnGetRoomListCallback);
+        NetworkManager.Instance.ServerConn.RemoveEventListener(ProtocolType.GET_ACHIEVEMENT, OnGetAchievementCallback);
+        NetworkManager.Instance.ServerConn.RemoveEventListener(ProtocolType.GET_ROOM_LIST, OnGetRoomListCallback);
     }
 
     #endregion
@@ -209,7 +209,7 @@ public class LobbyPanel : UIPanel
         proto.AddString(ProtocolType.ENTER_ROOM);
         proto.AddInt(index);
 
-        NetworkManager.Instance.serverConn.Send(proto, OnJoinButtonCallback);
+        NetworkManager.Instance.ServerConn.Send(proto, OnJoinButtonCallback);
 
         Debug.Log("[请求加入房间] 房间号: " + (index + 1));
     }
@@ -252,7 +252,7 @@ public class LobbyPanel : UIPanel
         ProtocolBytes proto = new ProtocolBytes();
         proto.AddString(ProtocolType.CREATE_ROOM);
 
-        NetworkManager.Instance.serverConn.Send(proto, OnNewCallback);
+        NetworkManager.Instance.ServerConn.Send(proto, OnNewCallback);
 
         Debug.Log("[请求创建房间]");
     }
@@ -293,7 +293,7 @@ public class LobbyPanel : UIPanel
         ProtocolBytes proto = new ProtocolBytes();
         proto.AddString(ProtocolType.GET_ROOM_LIST);
 
-        NetworkManager.Instance.serverConn.Send(proto);
+        NetworkManager.Instance.ServerConn.Send(proto);
 
         Debug.Log("[请求刷新房间列表]");
     }
@@ -306,7 +306,7 @@ public class LobbyPanel : UIPanel
         ProtocolBytes proto = new ProtocolBytes();
         proto.AddString(ProtocolType.LOGOUT);
 
-        NetworkManager.Instance.serverConn.Send(proto, OnLogoutCallback);
+        NetworkManager.Instance.ServerConn.Send(proto, OnLogoutCallback);
 
         Debug.Log("[请求用户登出]");
     }
