@@ -64,8 +64,8 @@ public class LobbyPanel : UIPanel
         _logoutButton.onClick.AddListener(OnLogoutClick);
 
         // 向消息分发器注册事件监听回调方法
-        NetworkManager.Instance.ServerConn.AddEventListener(ProtocolType.GET_ACHIEVEMENT, OnGetAchievementCallback);
-        NetworkManager.Instance.ServerConn.AddEventListener(ProtocolType.GET_ROOM_LIST, OnGetRoomListCallback);
+        NetworkManager.Instance.ServerConn.AddEventListener(ProtocolType.GET_ACHIEVEMENT, RecvAchievementCallback);
+        NetworkManager.Instance.ServerConn.AddEventListener(ProtocolType.GET_ROOM_LIST, RecvRoomListCallback);
 
         // 向服务端查询“玩家成就”和“房间列表”
         ProtocolBytes proto = new ProtocolBytes();
@@ -85,8 +85,8 @@ public class LobbyPanel : UIPanel
         base.OnClosing();
 
         // 从消息分发器移除事件监听回调方法
-        NetworkManager.Instance.ServerConn.RemoveEventListener(ProtocolType.GET_ACHIEVEMENT, OnGetAchievementCallback);
-        NetworkManager.Instance.ServerConn.RemoveEventListener(ProtocolType.GET_ROOM_LIST, OnGetRoomListCallback);
+        NetworkManager.Instance.ServerConn.RemoveEventListener(ProtocolType.GET_ACHIEVEMENT, RecvAchievementCallback);
+        NetworkManager.Instance.ServerConn.RemoveEventListener(ProtocolType.GET_ROOM_LIST, RecvRoomListCallback);
     }
 
     #endregion
@@ -95,7 +95,7 @@ public class LobbyPanel : UIPanel
     /// 获取到玩家成就后的回调方法
     /// </summary>
     /// <param name="proto">协议消息</param>
-    private void OnGetAchievementCallback(Protocol proto)
+    private void RecvAchievementCallback(Protocol proto)
     {
         ProtocolBytes responseProto = (ProtocolBytes) proto;
 
@@ -117,7 +117,7 @@ public class LobbyPanel : UIPanel
     /// 获取到房间列表后的回调方法
     /// </summary>
     /// <param name="proto">协议消息</param>
-    private void OnGetRoomListCallback(Protocol proto)
+    private void RecvRoomListCallback(Protocol proto)
     {
         // 首先清空房间列表
         ClearRoomList();
@@ -209,17 +209,19 @@ public class LobbyPanel : UIPanel
         proto.AddString(ProtocolType.ENTER_ROOM);
         proto.AddInt(index);
 
-        NetworkManager.Instance.ServerConn.Send(proto, OnJoinButtonCallback);
+        NetworkManager.Instance.ServerConn.Send(proto, RecvEnterRoomCallback);
 
         Debug.Log("[请求加入房间] 房间号: " + (index + 1));
     }
 
     /// <summary>
-    /// 点击加入房间按钮后的回调方法
+    /// 接收到进入房间消息后的回调方法
     /// </summary>
     /// <param name="proto">协议消息</param>
-    private void OnJoinButtonCallback(Protocol proto)
+    private void RecvEnterRoomCallback(Protocol proto)
     {
+        // TODO: GO ON
+
         ProtocolBytes responseProto = (ProtocolBytes) proto;
 
         int start = 0;
@@ -252,16 +254,16 @@ public class LobbyPanel : UIPanel
         ProtocolBytes proto = new ProtocolBytes();
         proto.AddString(ProtocolType.CREATE_ROOM);
 
-        NetworkManager.Instance.ServerConn.Send(proto, OnNewCallback);
+        NetworkManager.Instance.ServerConn.Send(proto, RecvCreateRoomCallback);
 
         Debug.Log("[请求创建房间]");
     }
 
     /// <summary>
-    /// 创建房间后的回调方法
+    /// 接收到创建房间消息后的回调方法
     /// </summary>
     /// <param name="proto">协议消息</param>
-    private void OnNewCallback(Protocol proto)
+    private void RecvCreateRoomCallback(Protocol proto)
     {
         ProtocolBytes responseProto = (ProtocolBytes) proto;
 
@@ -306,16 +308,16 @@ public class LobbyPanel : UIPanel
         ProtocolBytes proto = new ProtocolBytes();
         proto.AddString(ProtocolType.LOGOUT);
 
-        NetworkManager.Instance.ServerConn.Send(proto, OnLogoutCallback);
+        NetworkManager.Instance.ServerConn.Send(proto, RecvLogoutCallback);
 
         Debug.Log("[请求用户登出]");
     }
 
     /// <summary>
-    /// 用户登出后的回调方法
+    /// 接收到用户登出消息后的回调方法
     /// </summary>
     /// <param name="proto">协议消息</param>
-    private void OnLogoutCallback(Protocol proto)
+    private void RecvLogoutCallback(Protocol proto)
     {
         UIManager.Instance.ShowAlertPanel("登出成功！");
 

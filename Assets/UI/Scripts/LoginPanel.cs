@@ -77,7 +77,7 @@ public class LoginPanel : UIPanel
         proto.AddString(_pwInput.text);
 
         // 发送登录协议
-        NetworkManager.Instance.ServerConn.Send(proto, ProtocolType.LOGIN, OnLoginCallback);
+        NetworkManager.Instance.ServerConn.Send(proto, ProtocolType.LOGIN, RecvLoginCallback);
     }
 
     /// <summary>
@@ -90,10 +90,10 @@ public class LoginPanel : UIPanel
     }
 
     /// <summary>
-    /// 登录后的回调方法
+    /// 接收到登录消息后的回调方法
     /// </summary>
     /// <param name="proto">协议消息</param>
-    private void OnLoginCallback(Protocol proto)
+    private void RecvLoginCallback(Protocol proto)
     {
         ProtocolBytes responseProto = (ProtocolBytes) proto;
 

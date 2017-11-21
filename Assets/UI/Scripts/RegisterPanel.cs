@@ -85,14 +85,14 @@ public class RegisterPanel : UIPanel
         proto.AddString(_pwInput.text);
 
         // 发送注册协议
-        NetworkManager.Instance.ServerConn.Send(proto, ProtocolType.REGISTER, OnRegisterCallback);
+        NetworkManager.Instance.ServerConn.Send(proto, ProtocolType.REGISTER, RecvRegisterCallback);
     }
 
     /// <summary>
-    /// 注册后的回调方法
+    /// 接收到注册消息后的回调方法
     /// </summary>
     /// <param name="proto">协议消息</param>
-    private void OnRegisterCallback(Protocol proto)
+    private void RecvRegisterCallback(Protocol proto)
     {
         ProtocolBytes responseProto = (ProtocolBytes) proto;
 

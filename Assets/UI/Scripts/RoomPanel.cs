@@ -55,8 +55,8 @@ public class RoomPanel : UIPanel
         _quitButton.onClick.AddListener(OnQuitClick);
 
         // 向消息分发器注册事件监听回调方法
-        NetworkManager.Instance.ServerConn.AddEventListener(ProtocolType.GET_ROOM_INFO, OnGetRoomInfoCallback);
-        NetworkManager.Instance.ServerConn.AddEventListener(ProtocolType.FIGHT, OnStartFightCallback);
+        NetworkManager.Instance.ServerConn.AddEventListener(ProtocolType.GET_ROOM_INFO, RecvRoomInfoCallback);
+        NetworkManager.Instance.ServerConn.AddEventListener(ProtocolType.FIGHT, RecvStartFightCallback);
 
         // 向服务端查询“房间信息”
         ProtocolBytes proto = new ProtocolBytes();
@@ -72,8 +72,8 @@ public class RoomPanel : UIPanel
         base.OnClosing();
 
         // 从消息分发器移除事件监听回调方法
-        NetworkManager.Instance.ServerConn.RemoveEventListener(ProtocolType.GET_ROOM_INFO, OnGetRoomInfoCallback);
-        NetworkManager.Instance.ServerConn.RemoveEventListener(ProtocolType.FIGHT, OnStartFightCallback);
+        NetworkManager.Instance.ServerConn.RemoveEventListener(ProtocolType.GET_ROOM_INFO, RecvRoomInfoCallback);
+        NetworkManager.Instance.ServerConn.RemoveEventListener(ProtocolType.FIGHT, RecvStartFightCallback);
     }
 
     #endregion
@@ -82,7 +82,7 @@ public class RoomPanel : UIPanel
     /// 获取到房间信息后的回调方法
     /// </summary>
     /// <param name="proto">协议消息</param>
-    private void OnGetRoomInfoCallback(Protocol proto)
+    private void RecvRoomInfoCallback(Protocol proto)
     {
         ProtocolBytes responseProto = (ProtocolBytes) proto;
 
@@ -149,7 +149,7 @@ public class RoomPanel : UIPanel
     /// 接收到开始战斗指令后的回调方法
     /// </summary>
     /// <param name="proto">协议消息</param>
-    private void OnStartFightCallback(Protocol proto)
+    private void RecvStartFightCallback(Protocol proto)
     {
         // TODO: 接收到‘开始战斗’指令
 
@@ -177,7 +177,7 @@ public class RoomPanel : UIPanel
         ProtocolBytes proto = new ProtocolBytes();
         proto.AddString(ProtocolType.START_FIGHT);
 
-        NetworkManager.Instance.ServerConn.Send(proto, OnStartCallback);
+        NetworkManager.Instance.ServerConn.Send(proto, RecvStartCallback);
 
         Debug.Log("[请求开始战斗]");
     }
@@ -186,7 +186,7 @@ public class RoomPanel : UIPanel
     /// 点击开始战斗后的回调方法
     /// </summary>
     /// <param name="proto">协议消息</param>
-    private void OnStartCallback(Protocol proto)
+    private void RecvStartCallback(Protocol proto)
     {
         ProtocolBytes responseProto = (ProtocolBytes) proto;
 
@@ -210,16 +210,16 @@ public class RoomPanel : UIPanel
         ProtocolBytes proto = new ProtocolBytes();
         proto.AddString(ProtocolType.LEAVE_ROOM);
 
-        NetworkManager.Instance.ServerConn.Send(proto, OnQuitCallback);
+        NetworkManager.Instance.ServerConn.Send(proto, RecvQuitCallback);
 
         Debug.Log("[请求离开房间]");
     }
 
     /// <summary>
-    /// 离开房间后的回调方法
+    /// 接收到离开房间消息后的回调方法
     /// </summary>
     /// <param name="proto">协议消息</param>
-    private void OnQuitCallback(Protocol proto)
+    private void RecvQuitCallback(Protocol proto)
     {
         ProtocolBytes responseProto = (ProtocolBytes) proto;
 
