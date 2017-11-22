@@ -118,7 +118,7 @@ public class RoomPanel : UIPanel
                 {
                     sb.Append("[房主]");
                 }
-                if (id.Equals(PlayerManager.Instance.PlayerID))
+                if (id.Equals(PlayerManager.Instance.CurrentPlayer.Id))
                 {
                     sb.Append("[我]");
                 }
@@ -157,13 +157,17 @@ public class RoomPanel : UIPanel
 
         Debug.Log("[战斗开始]");
 
-        // 开始监听网络延迟
-        NetworkManager.Instance.NetworkStatus.Start();
-
-        // TODO: 战斗结束后要停掉网络延迟监听
-
-        // 加载战斗场景
-        UIManager.Instance.ShowAlertPanel("FIGHTING!");
+        // 通过 GameController 开始战斗
+        GameObject gameControllerObj = GameObject.FindGameObjectWithTag("GameController");
+        if (gameControllerObj == null)
+        {
+            Debug.LogError("[空引用异常] 场景中找不到 GameController 对象！");
+        }
+        else
+        {
+            GameController gameControllerScript = gameControllerObj.GetComponent<GameController>();
+            gameControllerScript.BeginBattle((ProtocolBytes) proto);
+        }
 
         // 关闭房间界面
         Close();

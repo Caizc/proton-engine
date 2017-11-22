@@ -53,4 +53,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefabs:
   - {fileID: 1704152698220698, guid: d25aa364900ed6642ae87681517481d9, type: 2}
-  customConfig: {fileID: 0}
+  customConfig: {fileID: 11400000, guid: b8b127fa54c1a95478a134c98316991b, type: 2}

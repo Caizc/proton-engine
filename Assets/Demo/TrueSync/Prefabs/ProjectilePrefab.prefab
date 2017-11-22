@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4c7bd8f1459c9546b38fea6d5368cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTrigger: 0
+  _isTrigger: 1
   tsMaterial: {fileID: 0}
   center:
     x:
@@ -137,11 +137,11 @@ MonoBehaviour:
     _serializedValue: 64424509440
   direction:
     x:
-      _serializedValue: 1658934272
+      _serializedValue: 0
     y:
       _serializedValue: 0
     z:
-      _serializedValue: -3961651200
+      _serializedValue: 4294967296
 --- !u!114 &114739301849585046
 MonoBehaviour:
   m_ObjectHideFlags: 1

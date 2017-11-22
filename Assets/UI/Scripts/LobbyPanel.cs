@@ -108,7 +108,7 @@ public class LobbyPanel : UIPanel
         int lostCount = responseProto.GetInt(start, ref start);
 
         // 更新 UI 信息
-        _idText.text = "玩家: " + PlayerManager.Instance.PlayerID;
+        _idText.text = "玩家: " + PlayerManager.Instance.CurrentPlayer.Id;
         _winText.text = "Win: " + winCount;
         _lostText.text = "Lost: " + lostCount;
     }

@@ -110,8 +110,9 @@ public class LoginPanel : UIPanel
             // 打开游戏大厅界面
             UIManager.Instance.OpenPanel<LobbyPanel>("");
 
-            // 设置玩家 ID
-            PlayerManager.Instance.PlayerID = _idInput.text;
+            // 设置玩家 ID 和昵称
+            PlayerManager.Instance.CurrentPlayer.Id = _idInput.text;
+            PlayerManager.Instance.CurrentPlayer.NickName = _idInput.text;
 
             // 关闭登录界面
             Close();

@@ -7,7 +7,7 @@ namespace TrueSync {
     /**
      * @brief Manages creation of player prefabs and lockstep execution.
      **/
-    [AddComponentMenu("")]
+    [AddComponentMenu("TrueSync/TrueSyncManager", 0)]
     public class TrueSyncManager : MonoBehaviour {
 
         private const float JitterTimeFactor = 0.001f;
@@ -288,11 +288,11 @@ namespace TrueSync {
 //                        PhotonPlayer p = players[index];
 //                        lockstep.AddPlayer((byte) p.ID, p.NickName, p.IsLocal);
 //                    }
-// TODO: 转换为 TrueSync Player
-//                    foreach (var player in SpaceBattle.Instance.PlayerDict)
-//                    {
-//                        lockstep.AddPlayer((byte) player.Key, player.Value, player.Value == PlayerManager.Instance.PlayerID);
-//                    }
+                    
+                    foreach (Player player in RealSyncManager.Players)
+                    {
+                        lockstep.AddPlayer((byte) player.Sid, player.Id, player.Id == PlayerManager.Instance.CurrentPlayer.Id);
+                    }
                 }
             }
 

@@ -3,10 +3,8 @@
 /// </summary>
 public class PlayerManager
 {
-    /// <summary>
-    /// 当前玩家 ID
-    /// </summary>
-    public string PlayerID;
+    // 当前玩家
+    public Player CurrentPlayer = new Player();
 
     private static PlayerManager _instance;
 
@@ -39,6 +37,6 @@ public class PlayerManager
     public void Init()
     {
         // 默认玩家 ID 为“游客”
-        PlayerID = "tourist";
+        CurrentPlayer.Id = "tourist";
     }
 }
