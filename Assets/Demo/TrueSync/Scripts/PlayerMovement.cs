@@ -9,8 +9,7 @@ public class PlayerMovement : TrueSyncBehaviour
 
     [SerializeField] private FP steerRate;
 
-    [AddTracking]
-    public int deaths = 0;
+    [AddTracking] public int deaths = 0;
 
     public override void OnSyncedInput()
     {
@@ -35,6 +34,12 @@ public class PlayerMovement : TrueSyncBehaviour
 
     public override void OnSyncedStart()
     {
+        // 设置非当前玩家为灰色
+        if (owner.name != PlayerManager.Instance.CurrentPlayer.Id)
+        {
+            tsTransform.GetComponentInParent<MeshRenderer>().materials[0].color = Color.gray;
+        }
+
         tsTransform.position = new TSVector(TSRandom.Range(-5, 5), 0, TSRandom.Range(-5, 5));
     }
 

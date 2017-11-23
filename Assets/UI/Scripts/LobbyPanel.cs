@@ -220,8 +220,6 @@ public class LobbyPanel : UIPanel
     /// <param name="proto">协议消息</param>
     private void RecvEnterRoomCallback(Protocol proto)
     {
-        // TODO: GO ON
-
         ProtocolBytes responseProto = (ProtocolBytes) proto;
 
         int start = 0;
