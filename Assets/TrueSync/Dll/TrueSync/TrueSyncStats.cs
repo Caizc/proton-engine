@@ -35,9 +35,9 @@ namespace TrueSync
 		[HideInInspector]
 		internal AbstractLockstep lockstep;
 
-		public int width = 200;
+		public int width = 300;
 
-		public int height = 200;
+		public int height = 300;
 
 		public int marginLeft = 0;
 
@@ -45,7 +45,7 @@ namespace TrueSync
 
 		private Texture2D bgTexture;
 
-		private int globalTextWidth = 150;
+		private int globalTextWidth = 250;
 
 		private float barWidth;
 
@@ -88,7 +88,7 @@ namespace TrueSync
 
 		public void OnGUI()
 		{
-			GUI.color = new Color(1f, 1f, 1f, 0.75f);
+			GUI.color = new Color(1f, 1f, 1f, 0.25f);
 			GUI.DrawTexture(new Rect(0f, 0f, (float)(this.width + this.globalTextWidth), (float)(this.height + 1)), this.bgTexture, 0);
 			GUI.color = Color.white;
 			this.DrawAxis();
@@ -141,6 +141,7 @@ namespace TrueSync
 		private void DrawGlobalInfo(ref int posBaseY, string statsKey)
 		{
             GUI.skin.label.alignment = TextAnchor.MiddleLeft;
+		    GUI.skin.label.fontSize = 24;
 			GUI.contentColor = this.statsUI[statsKey].color;
 			bool flag = statsKey == "players";
 			CountInfo info;
@@ -154,9 +155,9 @@ namespace TrueSync
 				info = this.lockstep.compoundStats.globalStats.GetInfo(statsKey);
 			}
 			string str = this.statsUI[statsKey].isAvg ? info.averageFormatted() : string.Concat(info.count);
-			this.reusableRect.Set((float)(this.width + this.marginRight), (float)posBaseY, (float)this.globalTextWidth, 20f);
+			this.reusableRect.Set((float)(this.width + this.marginRight), (float)posBaseY, (float)this.globalTextWidth, 24f);
 			GUI.Label(this.reusableRect, this.statsUI[statsKey].description + ": " + str);
-			posBaseY += 20;
+			posBaseY += 24;
 		}
 
 		private void DrawOfflineMode(ref int posBaseY)
@@ -166,9 +167,9 @@ namespace TrueSync
 			{
                 GUI.skin.label.alignment = TextAnchor.MiddleLeft;
 				GUI.contentColor = this.lockstep.checksumOk ? TrueSyncStats.COLOR_GREEN : Color.red;
-				this.reusableRect.Set((float)(this.width + this.marginRight), (float)posBaseY, (float)this.globalTextWidth, 20f);
+				this.reusableRect.Set((float)(this.width + this.marginRight), (float)posBaseY, (float)this.globalTextWidth, 24f);
 				GUI.Label(this.reusableRect, "Offilne Mode");
-				posBaseY += 20;
+				posBaseY += 24;
 			}
 		}
 
@@ -176,7 +177,7 @@ namespace TrueSync
 		{
             GUI.skin.label.alignment = TextAnchor.MiddleLeft;
 			GUI.contentColor = this.lockstep.checksumOk ? TrueSyncStats.COLOR_GREEN : Color.red;
-			this.reusableRect.Set((float)(this.width + this.marginRight), (float)(this.height - 20), (float)this.globalTextWidth, 20f);
+			this.reusableRect.Set((float)(this.width + this.marginRight), (float)(this.height - 20), (float)this.globalTextWidth, 24f);
 			GUI.Label(this.reusableRect, this.lockstep.checksumOk ? "Checksum: OK" : "Checksum: NOK");
 		}
 	}

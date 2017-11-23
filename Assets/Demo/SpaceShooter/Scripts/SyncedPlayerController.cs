@@ -60,6 +60,8 @@ public class SyncedPlayerController : TrueSyncBehaviour
     // 死亡次数
     [AddTracking] private int _death;
 
+    private GUIStyle _style = new GUIStyle();
+
     public override void OnSyncedStart()
     {
         tsTransform.position = new TSVector(TSRandom.Range(-5, 5), 0, TSRandom.Range(-5, 5));
@@ -113,6 +115,9 @@ public class SyncedPlayerController : TrueSyncBehaviour
         _audioSource = GetComponent<AudioSource>();
 
         _death = 0;
+
+        _style.normal.textColor = Color.white;
+        _style.fontSize = 24;
     }
 
     public override void OnSyncedInput()
@@ -230,6 +235,6 @@ public class SyncedPlayerController : TrueSyncBehaviour
 
     void OnGUI()
     {
-        GUI.Label(new Rect(10, 100 + 30 * owner.Id, 300, 30), "player: " + owner.name + ", deaths: " + _death);
+        GUI.Label(new Rect(10, 100 + 30 * owner.Id, 300, 30), "player: " + owner.name + ", deaths: " + _death, _style);
     }
 }
