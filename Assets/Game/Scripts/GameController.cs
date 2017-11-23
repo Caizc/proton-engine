@@ -39,11 +39,12 @@ public class GameController : MonoBehaviour
     /// <param name="proto">协议消息</param>
     public void BeginBattle(ProtocolBytes proto)
     {
-        _realSyncManager = new RealSyncManager();
-        _realSyncManager.StartSync(proto);
-
         // 开始监听网络延迟
         NetworkManager.Instance.NetworkStatus.Start();
+
+        // 开始战斗同步
+        _realSyncManager = new RealSyncManager();
+        _realSyncManager.StartSync(proto);
 
         // 加载战斗场景
         SceneManager.LoadScene("Demo/TrueSync/_Scenes/Helloworld");
@@ -56,6 +57,12 @@ public class GameController : MonoBehaviour
     {
         // 停止监听网络延迟
         NetworkManager.Instance.NetworkStatus.Shutdown();
+
+        // 停止战斗同步
+
+        // 卸载战斗场景
+
+        // 回到游戏大厅
     }
 
     /// <summary>

@@ -74,6 +74,11 @@ public class ProtocolType
     public const string FIGHT = "Fight";
 
     /// <summary>
+    /// 结束战斗
+    /// </summary>
+    public const string END_FIGHT = "EndFight";
+
+    /// <summary>
     /// TrueSync 数据
     /// </summary>
     public const string TRUESYNC = "TrueSync";
