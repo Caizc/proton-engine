@@ -2,6 +2,7 @@
 using Proton;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UIManager = Proton.UIManager;
 
 /// <summary>
 /// 游戏控制器（Main）
@@ -30,7 +31,7 @@ public class GameController : MonoBehaviour
         StartCoroutine("Init");
 
         // 打开登录界面
-        UIManager.Instance.OpenPanel<LoginPanel>("");
+        Proton.UIManager.Instance.OpenPanel<LoginPanel>("");
     }
 
     /// <summary>
@@ -47,7 +48,8 @@ public class GameController : MonoBehaviour
         _realSyncManager.StartSync(proto);
 
         // 加载战斗场景
-        SceneManager.LoadScene("Demo/TrueSync/_Scenes/Helloworld");
+//        SceneManager.LoadScene("Demo/TrueSync/_Scenes/Helloworld");
+        SceneManager.LoadScene("Demo/SpaceShooter/_Scenes/Battle");
     }
 
     /// <summary>

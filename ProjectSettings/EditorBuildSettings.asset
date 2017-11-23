@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game/_Scenes/MinimalOnlineGame.unity
     guid: 25b5b976ea79133489ca4a43f52e757e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Demo/TrueSync/_Scenes/Helloworld.unity
     guid: bd8165fcf2b90c6419758b9fe6fbc871
+  - enabled: 1
+    path: Assets/Demo/SpaceShooter/_Scenes/Battle.unity
+    guid: d86c2f7d0ae60b2438192dee5e8289f6

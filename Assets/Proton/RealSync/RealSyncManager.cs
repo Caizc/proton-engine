@@ -12,7 +12,7 @@ namespace Proton
         /// </summary>
         public static List<Player> Players = new List<Player>();
 
-        public bool IsBattleStart;
+        public static bool IsBattleStart;
 
         // TODO: 接收到服务端发送数据的事件回调。这里跟底层消息分发的事件回调机制有所重复，应该可以再精简去掉一次回调
         public delegate void EventCallback(byte eventCode, object content, int senderId);
@@ -26,6 +26,8 @@ namespace Proton
         {
             // 清空玩家列表
             Players.Clear();
+
+            IsBattleStart = false;
         }
 
         /// <summary>
