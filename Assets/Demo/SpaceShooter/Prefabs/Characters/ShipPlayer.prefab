@@ -434,7 +434,7 @@ MonoBehaviour:
     id: 0
     name: 
   speed:
-    _serializedValue: 34359738368
+    _serializedValue: 51539607552
   rotateSpeed:
     _serializedValue: 214748364800
   boundary:

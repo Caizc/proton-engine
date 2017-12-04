@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9cf73a4b5473540904864b4859d78a, type: 3}
   m_Name: TrueSyncGlobalConfig
   m_EditorClassIdentifier: 
-  syncWindow: 10
+  syncWindow: 8
   rollbackWindow: 0
   panicWindow: 100
   physics2DEnabled: 0
